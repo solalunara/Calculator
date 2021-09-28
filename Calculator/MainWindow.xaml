@@ -7,24 +7,48 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBox x:Name="Calc" HorizontalAlignment="Center" Margin="0,50,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="650" Height="50" FontSize="36"/>
-        <Button x:Name="_7" Content="7" HorizontalAlignment="Left" Margin="75,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_8" Content="8" HorizontalAlignment="Left" Margin="150,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_9" Content="9" HorizontalAlignment="Left" Margin="225,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_6" Content="6" HorizontalAlignment="Left" Margin="225,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_5" Content="5" HorizontalAlignment="Left" Margin="150,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_4" Content="4" HorizontalAlignment="Left" Margin="75,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_1" Content="1" HorizontalAlignment="Left" Margin="75,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_2" Content="2" HorizontalAlignment="Left" Margin="150,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_3" Content="3" HorizontalAlignment="Left" Margin="225,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_0" Content="0" HorizontalAlignment="Left" Margin="150,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="NumButton1_Copy" Content="+/-" HorizontalAlignment="Left" Margin="75,350,0,0" VerticalAlignment="Top" Height="50" Width="50"/>
-        <Button x:Name="dot" Content="." HorizontalAlignment="Left" Margin="225,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button Content="+" HorizontalAlignment="Left" Margin="300,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button Content="-" HorizontalAlignment="Left" Margin="300,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button Content="*" HorizontalAlignment="Left" Margin="300,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button Content="/" HorizontalAlignment="Left" Margin="300,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="Enter" Content="Enter" HorizontalAlignment="Left" Margin="12,50,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="Enter"/>
+        <TextBox x:Name="Calc" HorizontalAlignment="Left" Margin="100,50,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="674" Height="50" FontSize="36"/>
+        <Button x:Name="_7" Content="7" HorizontalAlignment="Left" Margin="100,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_8" Content="8" HorizontalAlignment="Left" Margin="175,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_9" Content="9" HorizontalAlignment="Left" Margin="250,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_6" Content="6" HorizontalAlignment="Left" Margin="250,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_5" Content="5" HorizontalAlignment="Left" Margin="175,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_4" Content="4" HorizontalAlignment="Left" Margin="100,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_1" Content="1" HorizontalAlignment="Left" Margin="100,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_2" Content="2" HorizontalAlignment="Left" Margin="175,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_3" Content="3" HorizontalAlignment="Left" Margin="250,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_0" Content="0" HorizontalAlignment="Left" Margin="175,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="minus" Content="+/-" HorizontalAlignment="Left" Margin="100,350,0,0" VerticalAlignment="Top" Height="50" Width="50"/>
+        <Button x:Name="dot" Content="." HorizontalAlignment="Left" Margin="250,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="pls" Content="+" HorizontalAlignment="Left" Margin="325,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="sbt" Content="-" HorizontalAlignment="Left" Margin="325,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="mult" Content="*" HorizontalAlignment="Left" Margin="325,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="div" Content="/" HorizontalAlignment="Left" Margin="325,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="sqrt" Content="Sqrt(x)" HorizontalAlignment="Left" Margin="400,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="invsqrt" Content="1/Sqrt(x)" HorizontalAlignment="Left" Margin="400,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="leftperim" Content="(" HorizontalAlignment="Left" Margin="400,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="rightperim" Content=")" HorizontalAlignment="Left" Margin="400,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="pwr" Content="^" HorizontalAlignment="Left" Margin="475,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="sin" Content="Sin(x)" HorizontalAlignment="Left" Margin="475,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="cos" Content="Cos(x)" HorizontalAlignment="Left" Margin="475,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="tan" Content="Tan(x)" HorizontalAlignment="Left" Margin="475,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="ln" Content="ln(x)" HorizontalAlignment="Left" Margin="550,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="asin" Content="Asin(x)" HorizontalAlignment="Left" Margin="550,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="acos" Content="Acos(x)" HorizontalAlignment="Left" Margin="550,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="atan" Content="Atan(x)" HorizontalAlignment="Left" Margin="550,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_pi" Content="pi" HorizontalAlignment="Left" Margin="625,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="csc" Content="Csc(x)" HorizontalAlignment="Left" Margin="625,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="sec" Content="Sec(x)" HorizontalAlignment="Left" Margin="625,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="cot" Content="Cot(x)" HorizontalAlignment="Left" Margin="625,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_e" Content="e" HorizontalAlignment="Left" Margin="700,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="acsc" Content="Acsc(x)" HorizontalAlignment="Left" Margin="700,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="asec" Content="Asec(x)" HorizontalAlignment="Left" Margin="700,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="acot" Content="Acot(x)" HorizontalAlignment="Left" Margin="700,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+
+        <Button x:Name="Enter" Content="Enter" HorizontalAlignment="Left" Margin="25,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="MetaFunc"/>
+        <Button x:Name="Delete" Content="Delete" HorizontalAlignment="Left" Margin="25,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="MetaFunc"/>
+        <Button x:Name="Left" Content="&lt;-" HorizontalAlignment="Left" Margin="25,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="MetaFunc"/>
+        <Button x:Name="Right" Content="->" HorizontalAlignment="Left" Margin="25,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="MetaFunc"/>
 
     </Grid>
 </Window>

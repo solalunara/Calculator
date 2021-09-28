@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Diagnostics.Debug;
 
 namespace Calculator
 {
@@ -20,6 +21,8 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static int CurrentIndex;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,15 +43,51 @@ namespace Calculator
             return y;
         }
 
+
         private void NumButton( object sender, RoutedEventArgs e )
         {
             if ( sender is Button btn )
-                Calc.Text += btn.Name[ 1.. ];
+            {
+                Calc.Text = Calc.Text.Insert( CurrentIndex, btn.Name[ 1.. ] );
+                CurrentIndex += btn.Name.Length - 1;
+            }
         }
 
-        private void Enter( object sender, RoutedEventArgs e )
+        private void MetaFunc( object sender, RoutedEventArgs e )
         {
-
+            if ( sender is Button btn )
+            {
+                switch ( btn.Name )
+                {
+                    case "Enter":
+                    {
+                        string Expression = Calc.Text;
+                        break;
+                    }
+                    case "Delete":
+                    {
+                        Calc.Text = Calc.Text.Remove( CurrentIndex, 1 );
+                        break;
+                    }
+                    case "Left":
+                    {
+                        if ( CurrentIndex > 0 )
+                            --CurrentIndex;
+                        break;
+                    }
+                    case "Right":
+                    {
+                        if ( CurrentIndex < Calc.Text.Length )
+                            ++CurrentIndex;
+                        break;
+                    }
+                    default:
+                    {
+                        Assert( false, "Button not in table!" );
+                        return;
+                    }
+                }
+            }
         }
     }
 }
