@@ -1,0 +1,30 @@
+﻿<Window x:Class="Calculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calculator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TextBox x:Name="Calc" HorizontalAlignment="Center" Margin="0,50,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="650" Height="50" FontSize="36"/>
+        <Button x:Name="_7" Content="7" HorizontalAlignment="Left" Margin="75,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_8" Content="8" HorizontalAlignment="Left" Margin="150,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_9" Content="9" HorizontalAlignment="Left" Margin="225,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_6" Content="6" HorizontalAlignment="Left" Margin="225,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_5" Content="5" HorizontalAlignment="Left" Margin="150,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_4" Content="4" HorizontalAlignment="Left" Margin="75,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_1" Content="1" HorizontalAlignment="Left" Margin="75,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_2" Content="2" HorizontalAlignment="Left" Margin="150,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_3" Content="3" HorizontalAlignment="Left" Margin="225,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_0" Content="0" HorizontalAlignment="Left" Margin="150,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="NumButton1_Copy" Content="+/-" HorizontalAlignment="Left" Margin="75,350,0,0" VerticalAlignment="Top" Height="50" Width="50"/>
+        <Button x:Name="dot" Content="." HorizontalAlignment="Left" Margin="225,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button Content="+" HorizontalAlignment="Left" Margin="300,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button Content="-" HorizontalAlignment="Left" Margin="300,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button Content="*" HorizontalAlignment="Left" Margin="300,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button Content="/" HorizontalAlignment="Left" Margin="300,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="Enter" Content="Enter" HorizontalAlignment="Left" Margin="12,50,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="Enter"/>
+
+    </Grid>
+</Window>
