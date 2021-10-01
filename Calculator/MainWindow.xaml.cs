@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Globalization;
 using static System.Diagnostics.Debug;
+using System.Text.RegularExpressions;
 
 namespace Calculator
 {
@@ -43,12 +44,18 @@ namespace Calculator
         }
 
         [Flags]
+        private enum FiveFuncs
+        {
+            PWR         = 1 << 0,
+            MULTIPLY    = 1 << 1,
+            DIVIDE      = 1 << 2,
+            PLUS        = 1 << 3,
+            MINUS       = 1 << 4,
+        }
+        [Flags]
         private enum MathFuncs
         {
-            MULTIPLY    = 1 << 0,
-            DIVIDE      = 1 << 1,
-            PLUS        = 1 << 2,
-            MINUS       = 1 << 3,
+            SQRT        = 1 << 0,
         }
 
         private void MetaFunc( object sender, RoutedEventArgs e )
@@ -93,10 +100,57 @@ namespace Calculator
         {
             Expression = Expression.Replace( "pi", MathF.PI.ToString( CultureInfo.CurrentCulture ), StringComparison.CurrentCultureIgnoreCase );
             Expression = Expression.Replace( "e", MathF.E.ToString( CultureInfo.CurrentCulture ), StringComparison.CurrentCulture );
+
+            //evaluate all functions that aren't one of the main 5 first, and turn them into numbers
+            for ( int i = 0; i < Expression.Length; ++i )
+            {
+                if ( i < Expression.Length - 4 && Expression[ i..( i + 4 ) ] == "sqrt" )
+                {
+                    //implicit multiplication
+                    if ( i > 0 && Expression[ i - 1 ] is not '*' and not '/' and not '+' and not '-' and not '^' )
+                        Expression = Expression.Insert( i, "*" );
+
+                    //has to be indexof because the above statement may shift it to being i + 5
+                    int StartPerimIndex = Expression.IndexOf( '(', i + 4 );
+                    int LeftPerims = 0;
+                    int RightPerims = 0;
+                    int EndPerimIndex = 0;
+                    for ( int j = StartPerimIndex; j < Expression.Length; ++j )
+                    {
+                        if ( Expression[ j ] == '(' )
+                            ++LeftPerims;
+                        if ( Expression[ j ] == ')' )
+                            ++RightPerims;
+
+                        if ( LeftPerims == RightPerims )
+                        {
+                            EndPerimIndex = j;
+                            break;
+                        }
+                    }
+                    Assert( EndPerimIndex != 0 );
+                    float EnclosedValue = EvaluateString( Expression[ ( StartPerimIndex + 1 )..EndPerimIndex ] );
+                    Expression = Expression[ 0..( StartPerimIndex - 4 ) ] + MathF.Sqrt( EnclosedValue ).ToString( CultureInfo.CurrentCulture ) + Expression[ ( EndPerimIndex + 1 ).. ];
+                }
+            }
+
+            //permis being next to something means implicit multiplication
             Expression = Expression.Replace( ")(", ")*(", StringComparison.CurrentCulture );
+            for ( int i = 1; i < Expression.Length - 1; ++i )
+            {
+                if ( Expression[ i ] is not '(' and not ')' and not '^' )
+                    continue;
+
+                if ( Expression[ i ] is '(' && Expression[ i - 1 ] is not '*' and not '/' and not '+' and not '-' and not '^' )
+                    Expression = Expression.Insert( i - 1, "*" );
+                if ( Expression[ i ] is ')' && Expression[ i + 1 ] is not '*' and not '/' and not '+' and not '-' and not '^' )
+                    Expression = Expression.Insert( i + 1, "*" );
+            }
+
+            
 
             //if there are parenthases, find the maximum enclosed section, and get it's value
-            //while loop for parallel parenthases like "(2+3)*(4+5)
+            //while loop for parallel parenthases like "(2+3)*(4+5)"
             while ( Expression.Contains( '(' ) || Expression.Contains( ')' ) )
             {
                 int StartPerimIndex = Expression.IndexOf( '(' );
@@ -123,21 +177,27 @@ namespace Calculator
                 Expression = Expression[ 0..StartPerimIndex ] + EnclosedSectionValue + Expression[ ( EndPerimIndex + 1 ).. ];
             }
 
+            
 
             //get the functions from the long string
-            List<(MathFuncs, int)> FunctionList = new();
+            List<(FiveFuncs, int)> FiveFunctionList = new();
             for ( int i = 0; i < Expression.Length; ++i )
             {
                 switch ( Expression[ i ] )
                 {
+                    case '^':
+                    {
+                        FiveFunctionList.Add( (FiveFuncs.PWR, i) );
+                        break;
+                    }
                     case '/':
                     {
-                        FunctionList.Add( (MathFuncs.DIVIDE, i) );
+                        FiveFunctionList.Add( (FiveFuncs.DIVIDE, i) );
                         break;
                     }
                     case '*':
                     {
-                        FunctionList.Add( (MathFuncs.MULTIPLY, i) );
+                        FiveFunctionList.Add( (FiveFuncs.MULTIPLY, i) );
                         break;
                     }
                     case '+':
@@ -146,7 +206,7 @@ namespace Calculator
                         if ( Expression[ i - 1 ] == 'E' )
                             break;
 
-                        FunctionList.Add( (MathFuncs.PLUS, i) );
+                        FiveFunctionList.Add( (FiveFuncs.PLUS, i) );
                         break;
                     }
                     case '-':
@@ -155,7 +215,7 @@ namespace Calculator
                         if ( Expression[ i - 1 ] == 'E' )
                             break;
 
-                        FunctionList.Add( (MathFuncs.MINUS, i) );
+                        FiveFunctionList.Add( (FiveFuncs.MINUS, i) );
                         break;
                     }
 
@@ -165,12 +225,12 @@ namespace Calculator
             }
 
             //turn the long string into values
-            int ValueCount = FunctionList.Count + 1;
+            int ValueCount = FiveFunctionList.Count + 1;
             List<(float, int)> Values = new( ValueCount );
             int StringIndex = 0;
             for ( int i = 0; i < ValueCount; ++i )
             {
-                int StringNextIndex = i != ValueCount - 1 ? FunctionList[ i ].Item2 : Expression.Length;
+                int StringNextIndex = i != ValueCount - 1 ? FiveFunctionList[ i ].Item2 : Expression.Length;
 
                 if ( StringNextIndex == StringIndex )
                     throw new InvalidInputException( "Two operators next to each other, or one at the start" );
@@ -188,35 +248,41 @@ namespace Calculator
 
 
             //do order of operations by condensing values by their MathFuncs enum top to bottom
-            int MathFuncNum = Enum.GetValues( typeof( MathFuncs ) ).Length;
-            for ( int i = 0; i < MathFuncNum; ++i )
+            int FiveFunctionNum = Enum.GetValues( typeof( FiveFuncs ) ).Length;
+            for ( int i = 0; i < FiveFunctionNum; ++i )
             {
-                for ( int j = FunctionList.Count; --j >= 0; )
+                for ( int j = FiveFunctionList.Count; --j >= 0; )
                 {
-                    MathFuncs f = (MathFuncs) ( 1 << i );
-                    if ( FunctionList[ j ].Item1 == f )
+                    FiveFuncs f = (FiveFuncs) ( 1 << i );
+                    if ( FiveFunctionList[ j ].Item1 == f )
                     {
                         switch ( f )
                         {
-                            case MathFuncs.MULTIPLY:
+                            case FiveFuncs.PWR:
+                            {
+                                Values[ j ] = (MathF.Pow( Values[ j ].Item1, Values[ j + 1 ].Item1 ), Values[ j ].Item2);
+                                Values.RemoveAt( j + 1 );
+                                break;
+                            }
+                            case FiveFuncs.MULTIPLY:
                             {
                                 Values[ j ] = (Values[ j ].Item1 * Values[ j + 1 ].Item1, Values[ j ].Item2);
                                 Values.RemoveAt( j + 1 );
                                 break;
                             }
-                            case MathFuncs.DIVIDE:
+                            case FiveFuncs.DIVIDE:
                             {
                                 Values[ j ] = (Values[ j ].Item1 / Values[ j + 1 ].Item1, Values[ j ].Item2);
                                 Values.RemoveAt( j + 1 );
                                 break;
                             }
-                            case MathFuncs.PLUS:
+                            case FiveFuncs.PLUS:
                             {
                                 Values[ j ] = (Values[ j ].Item1 + Values[ j + 1 ].Item1, Values[ j ].Item2);
                                 Values.RemoveAt( j + 1 );
                                 break;
                             }
-                            case MathFuncs.MINUS:
+                            case FiveFuncs.MINUS:
                             {
                                 Values[ j ] = (Values[ j ].Item1 - Values[ j + 1 ].Item1, Values[ j ].Item2);
                                 Values.RemoveAt( j + 1 );
@@ -228,7 +294,7 @@ namespace Calculator
                                 throw new MissingMemberException( "Catastrophic failure: I don't even know what could possibly cause this" );
                             }
                         }
-                        FunctionList.RemoveAt( j );
+                        FiveFunctionList.RemoveAt( j );
                     }
                 }
             }
@@ -278,6 +344,16 @@ namespace Calculator
                         Calc.Text += ")";
                         break;
                     }
+                    case "sqrt":
+                    {
+                        Calc.Text += "sqrt(";
+                        break;
+                    }
+                    case "pwr":
+                    {
+                        Calc.Text += "^";
+                        break;
+                    }
                     default:
                     {
                         Assert( false, "Button not in table!" );
@@ -285,6 +361,12 @@ namespace Calculator
                     }
                 }
             }
+        }
+
+        private void TextBoxKeyDown( object sender, KeyEventArgs e )
+        {
+            if ( e.Key == Key.Enter )
+                MetaFunc( Enter, e );
         }
     }
 }
