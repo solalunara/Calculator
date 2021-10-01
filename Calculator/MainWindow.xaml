@@ -23,11 +23,14 @@
         <Button x:Name="sbt" Content="-" HorizontalAlignment="Left" Margin="325,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
         <Button x:Name="mult" Content="*" HorizontalAlignment="Left" Margin="325,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
         <Button x:Name="div" Content="/" HorizontalAlignment="Left" Margin="325,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="leftperim" Content="(" HorizontalAlignment="Left" Margin="400,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="rightperim" Content=")" HorizontalAlignment="Left" Margin="400,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="_e" Content="e" HorizontalAlignment="Left" Margin="400,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_pi" Content="pi" HorizontalAlignment="Left" Margin="400,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
 
         <Button x:Name="Enter" Content="Enter" HorizontalAlignment="Left" Margin="25,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="MetaFunc"/>
         <Button x:Name="Delete" Content="Delete" HorizontalAlignment="Left" Margin="25,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="MetaFunc"/>
-        <Button x:Name="Left" Content="&lt;-" HorizontalAlignment="Left" Margin="25,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="MetaFunc"/>
-        <Button x:Name="Right" Content="->" HorizontalAlignment="Left" Margin="25,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="MetaFunc"/>
+
 
     </Grid>
 </Window>
