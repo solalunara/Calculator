@@ -8,16 +8,16 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TextBox x:Name="Calc" HorizontalAlignment="Center" Margin="0,50,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="751" Height="50" FontSize="36" KeyDown="TextBoxKeyDown"/>
-        <Button x:Name="_7" Content="7" HorizontalAlignment="Left" Margin="100,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_8" Content="8" HorizontalAlignment="Left" Margin="175,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_9" Content="9" HorizontalAlignment="Left" Margin="250,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_6" Content="6" HorizontalAlignment="Left" Margin="250,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_5" Content="5" HorizontalAlignment="Left" Margin="175,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_4" Content="4" HorizontalAlignment="Left" Margin="100,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_1" Content="1" HorizontalAlignment="Left" Margin="100,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_2" Content="2" HorizontalAlignment="Left" Margin="175,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_3" Content="3" HorizontalAlignment="Left" Margin="250,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_0" Content="0" HorizontalAlignment="Left" Margin="175,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
+        <Button x:Name="_7" Content="7" HorizontalAlignment="Left" Margin="100,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="_8" Content="8" HorizontalAlignment="Left" Margin="175,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="_9" Content="9" HorizontalAlignment="Left" Margin="250,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="_6" Content="6" HorizontalAlignment="Left" Margin="250,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="_5" Content="5" HorizontalAlignment="Left" Margin="175,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="_4" Content="4" HorizontalAlignment="Left" Margin="100,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="_1" Content="1" HorizontalAlignment="Left" Margin="100,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="_2" Content="2" HorizontalAlignment="Left" Margin="175,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="_3" Content="3" HorizontalAlignment="Left" Margin="250,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="_0" Content="0" HorizontalAlignment="Left" Margin="175,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
         <Button x:Name="dot" Content="." HorizontalAlignment="Left" Margin="250,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
         <Button x:Name="pls" Content="+" HorizontalAlignment="Left" Margin="325,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
         <Button x:Name="sbt" Content="-" HorizontalAlignment="Left" Margin="325,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
@@ -25,9 +25,10 @@
         <Button x:Name="div" Content="/" HorizontalAlignment="Left" Margin="325,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
         <Button x:Name="leftperim" Content="(" HorizontalAlignment="Left" Margin="400,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
         <Button x:Name="rightperim" Content=")" HorizontalAlignment="Left" Margin="400,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
-        <Button x:Name="_e" Content="e" HorizontalAlignment="Left" Margin="400,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="_pi" Content="pi" HorizontalAlignment="Left" Margin="400,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="NumButton"/>
-        <Button x:Name="sqrt" Content="Sqrt(x)" HorizontalAlignment="Left" Margin="475,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="_e" Content="e" HorizontalAlignment="Left" Margin="400,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="_pi" Content="pi" HorizontalAlignment="Left" Margin="400,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="sqrt" Content="sqrt(" HorizontalAlignment="Left" Margin="475,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="ln" Content="ln(" HorizontalAlignment="Left" Margin="550,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
         <Button x:Name="pwr" Content="^" HorizontalAlignment="Left" Margin="475,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
 
         <Button x:Name="Enter" Content="Enter" HorizontalAlignment="Left" Margin="25,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="MetaFunc"/>
