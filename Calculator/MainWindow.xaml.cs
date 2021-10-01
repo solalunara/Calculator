@@ -98,8 +98,6 @@ namespace Calculator
 
         private float EvaluateString( string Expression )
         {
-            Expression = Expression.Replace( "pi", MathF.PI.ToString( CultureInfo.CurrentCulture ), StringComparison.CurrentCultureIgnoreCase );
-            Expression = Expression.Replace( "e", MathF.E.ToString( CultureInfo.CurrentCulture ), StringComparison.CurrentCulture );
 
             //evaluate all functions that aren't one of the main 5 first, and turn them into numbers
             for ( int i = 0; i < Expression.Length; ++i )
@@ -136,18 +134,47 @@ namespace Calculator
 
             //permis being next to something means implicit multiplication
             Expression = Expression.Replace( ")(", ")*(", StringComparison.CurrentCulture );
+            for ( int i = 0; i < Expression.Length; ++i )
+            {
+                if ( Expression[ i ] is not 'e' and not 'p' )
+                    continue;
+
+                if ( i != 0 )
+                {
+                    if ( Expression[ i ] is 'e' && Expression[ i - 1 ] is not '*' and not '/' and not '+' and not '-' and not '^' and not '(' and not ')' )
+                        Expression = Expression.Insert( i, "*" );
+                    if ( i < Expression.Length - 1 )
+                    {
+                        if ( Expression[ i..( i + 2 ) ] == "pi" && Expression[ i - 1 ] is not '*' and not '/' and not '+' and not '-' and not '^' and not '(' and not ')' )
+                            Expression = Expression.Insert( i, "*" );
+                    }
+                }
+                if ( i != Expression.Length - 1 )
+                {
+                    if ( Expression[ i ] is 'e' && Expression[ i + 1 ] is not '*' and not '/' and not '+' and not '-' and not '^' and not '(' and not ')' )
+                        Expression = Expression.Insert( i + 1, "*" );
+                    if ( i != Expression.Length - 2 )
+                    {
+                        if ( Expression[ i..( i + 2 ) ] == "pi" && Expression[ i + 2 ] is not '*' and not '/' and not '+' and not '-' and not '^' and not '(' and not ')' )
+                            Expression = Expression.Insert( i + 2, "*" );
+                    }
+                }
+            }
             for ( int i = 1; i < Expression.Length - 1; ++i )
             {
-                if ( Expression[ i ] is not '(' and not ')' and not '^' )
+                if ( Expression[ i ] is not '(' and not ')' )
                     continue;
 
                 if ( Expression[ i ] is '(' && Expression[ i - 1 ] is not '*' and not '/' and not '+' and not '-' and not '^' )
-                    Expression = Expression.Insert( i - 1, "*" );
+                    Expression = Expression.Insert( i, "*" );
                 if ( Expression[ i ] is ')' && Expression[ i + 1 ] is not '*' and not '/' and not '+' and not '-' and not '^' )
                     Expression = Expression.Insert( i + 1, "*" );
             }
 
-            
+            Expression = Expression.Replace( "pi", MathF.PI.ToString( CultureInfo.CurrentCulture ), StringComparison.CurrentCultureIgnoreCase );
+            Expression = Expression.Replace( "e", MathF.E.ToString( CultureInfo.CurrentCulture ), StringComparison.CurrentCulture );
+
+
 
             //if there are parenthases, find the maximum enclosed section, and get it's value
             //while loop for parallel parenthases like "(2+3)*(4+5)"
