@@ -27,8 +27,8 @@
         <Button x:Name="rightperim" Content=")" HorizontalAlignment="Left" Margin="400,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
         <Button x:Name="_e" Content="e" HorizontalAlignment="Left" Margin="400,350,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
         <Button x:Name="_pi" Content="pi" HorizontalAlignment="Left" Margin="400,275,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
-        <Button x:Name="sqrt" Content="sqrt(" HorizontalAlignment="Left" Margin="475,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
-        <Button x:Name="ln" Content="ln(" HorizontalAlignment="Left" Margin="550,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="sqrt" Content="Sqrt(" HorizontalAlignment="Left" Margin="475,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
+        <Button x:Name="ln" Content="Ln(" HorizontalAlignment="Left" Margin="550,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
         <Button x:Name="pwr" Content="^" HorizontalAlignment="Left" Margin="475,200,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="FuncButton"/>
 
         <Button x:Name="Enter" Content="Enter" HorizontalAlignment="Left" Margin="25,125,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="MetaFunc"/>

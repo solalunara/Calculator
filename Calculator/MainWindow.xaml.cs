@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Globalization;
 using static System.Diagnostics.Debug;
 using System.Text.RegularExpressions;
+using System.Reflection;
 
 namespace Calculator
 {
@@ -44,6 +45,38 @@ namespace Calculator
             PLUS        = 1 << 3,
             MINUS       = 1 << 4,
         }
+
+        private static string[] MathFuncs =
+        {
+            "Abs",
+            "Acos",
+            "Acosh",
+            "Asin",
+            "Asinh",
+            "Atan",
+            "Atan2",
+            "Atanh",
+            "BitDecrement",
+            "BitIncrement",
+            "Cbrt",
+            "Ceiling",
+            "Cos",
+            "Cosh",
+            "Exp",
+            "Floor",
+            "ILogB",
+            "Log",
+            "Log10",
+            "Log2",
+            "Round",
+            "Sign",
+            "Sin",
+            "Sinh",
+            "Sqrt",
+            "Tan",
+            "Tanh",
+            "Truncate"
+        };
 
         private void MetaFunc( object sender, RoutedEventArgs e )
         {
@@ -106,31 +139,32 @@ namespace Calculator
             return (StartPerimIndex, EndPerimIndex);
         }
 
+        private delegate float MathClassFuncDelegate( float a );
         private static float EvaluateString( string Expression )
         {
 
             //evaluate all functions that aren't one of the main 5 first, and turn them into numbers
             for ( int i = 0; i < Expression.Length; ++i )
             {
-                if ( i < Expression.Length - 4 && Expression[ i..( i + 4 ) ] == "sqrt" )
+                for ( int j = 0; j < MathFuncs.Length; ++j )
                 {
-                    //implicit multiplication
-                    if ( i > 0 && Expression[ i - 1 ] is not '*' and not '/' and not '+' and not '-' and not '^' )
-                        Expression = Expression.Insert( i, "*" );
+                    if ( i < Expression.Length - MathFuncs[ j ].Length && Expression[ i..( i + MathFuncs[ j ].Length ) ] == MathFuncs[ j ] )
+                    {
+                        //implicit multiplication
+                        if ( i > 0 && Expression[ i - 1 ] is not '*' and not '/' and not '+' and not '-' and not '^' )
+                            Expression = Expression.Insert( i, "*" );
 
-                    (int, int) PerimPair = FindPerimPair( Expression, i );
-                    float EnclosedValue = EvaluateString( Expression[ ( PerimPair.Item1 + 1 )..PerimPair.Item2 ] );
-                    Expression = Expression[ 0..( PerimPair.Item1 - 4 ) ] + MathF.Sqrt( EnclosedValue ).ToString( CultureInfo.CurrentCulture ) + Expression[ ( PerimPair.Item2 + 1 ).. ];
-                }
-                if ( i < Expression.Length - 4 && Expression[ i..( i + 2 ) ] == "ln" )
-                {
-                    //implicit multiplication
-                    if ( i > 0 && Expression[ i - 1 ] is not '*' and not '/' and not '+' and not '-' and not '^' )
-                        Expression = Expression.Insert( i, "*" );
+                        (int, int) PerimPair = FindPerimPair( Expression, i );
+                        float EnclosedValue = EvaluateString( Expression[ ( PerimPair.Item1 + 1 )..PerimPair.Item2 ] );
+                        MethodInfo? Method = typeof( MathF ).GetMethod( MathFuncs[ j ], new[] { typeof( float ) } );
 
-                    (int, int) PerimPair = FindPerimPair( Expression, i );
-                    float EnclosedValue = EvaluateString( Expression[ ( PerimPair.Item1 + 1 )..PerimPair.Item2 ] );
-                    Expression = Expression[ 0..( PerimPair.Item1 - 2 ) ] + MathF.Log( EnclosedValue ).ToString( CultureInfo.CurrentCulture ) + Expression[ ( PerimPair.Item2 + 1 ).. ];
+                        if ( Method is null )
+                            throw new NotImplementedException( "No math class function with given name found" );
+
+                        MathClassFuncDelegate Function = Method.CreateDelegate<MathClassFuncDelegate>();
+                        float EvaluatedValue = Function( EnclosedValue );
+                        Expression = Expression[ 0..( PerimPair.Item1 - MathFuncs[ j ].Length ) ] + EvaluatedValue.ToString( CultureInfo.CurrentCulture ) + Expression[ ( PerimPair.Item2 + 1 ).. ];
+                    }
                 }
             }
 
@@ -193,7 +227,7 @@ namespace Calculator
 
             //get the functions from the long string
             List<(FiveFuncs, int)> FiveFunctionList = new();
-            for ( int i = 0; i < Expression.Length; ++i )
+            for ( int i = 1; i < Expression.Length; ++i )
             {
                 switch ( Expression[ i ] )
                 {
