@@ -142,6 +142,21 @@ namespace Calculator
         private delegate float MathClassFuncDelegate( float a );
         private static float EvaluateString( string Expression )
         {
+            List<int> Negatives = new();
+            for ( int i = 0; i < Expression.Length; ++i )
+            {
+                if ( Expression[ i ] == '-' )
+                {
+                    bool ShouldAddZero = true;
+                    for ( int j = 0; j < 10; ++j )
+                    {
+                        if ( i != 0 && Expression[ i - 1 ] == j )
+                            ShouldAddZero = false;
+                    }
+                    if ( ShouldAddZero )
+                        Negatives.Add( i );
+                }
+            }
 
             //evaluate all functions that aren't one of the main 5 first, and turn them into numbers
             for ( int i = 0; i < Expression.Length; ++i )
@@ -259,6 +274,10 @@ namespace Calculator
                     {
                         //see above
                         if ( Expression[ i - 1 ] == 'E' )
+                            break;
+
+                        //sign should be used as a negative, not as a minus
+                        if ( Negatives.Contains( i ) )
                             break;
 
                         FiveFunctionList.Add( (FiveFuncs.MINUS, i) );
